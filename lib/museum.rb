@@ -50,12 +50,17 @@ class Museum
     # patrons_by_exhibit
 
     @exhibits.reduce({}) do |patrons_by_exhibit, exhibit|
-      binding.pry
       interested_patrons = @patrons.find_all do |patron|
         patron.interests.include?(exhibit.name)
       end
       patrons_by_exhibit[exhibit] = interested_patrons
       patrons_by_exhibit
+    end
+  end
+
+  def ticket_lottery_contestants(exhibit)
+    patrons_by_exhibit_interest[exhibit].find_all do |patron|
+      patron.spending_money < exhibit.cost
     end
   end
 end
