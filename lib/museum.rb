@@ -1,12 +1,16 @@
 class Museum
   attr_reader :name,
               :exhibits,
-              :patrons
+              :patrons,
+              :patrons_of_exhibits,
+              :revenue
 
   def initialize(name)
     @name = name
     @exhibits = []
     @patrons = []
+    @patrons_of_exhibits = {}
+    @revenue = 0
   end
 
   def add_exhibit(exhibit)
@@ -15,6 +19,21 @@ class Museum
 
   def admit(patron)
     @patrons << patron
+    exhibits_by_cost.each do |exhibit|
+      if patron.interests.include?(exhibit.name) && patron.spending_money >= exhibit.cost
+        # @patrons_of_exhibits[exhibit] = [] if @patrons_of_exhibits[exhibit].nil?
+        @patrons_of_exhibits[exhibit] ||= []
+        @patrons_of_exhibits[exhibit] << patron
+        patron.spend_money(exhibit.cost)
+        @revenue += exhibit.cost
+      end
+    end
+  end
+
+  def exhibits_by_cost
+    @exhibits.sort_by do |exhibit|
+      -exhibit.cost
+    end
   end
 
   def recommend_exhibits(patron)
@@ -68,5 +87,11 @@ class Museum
     contestants = ticket_lottery_contestants(exhibit)
     return nil if contestants.empty?
     contestants.sample.name
+  end
+
+  def announce_lottery_winner(exhibit)
+    winner = draw_lottery_winner(exhibit)
+    return "No winners for this lottery" if winner.nil?
+    "#{winner} has won the #{exhibit.name} edhibit lottery"
   end
 end
