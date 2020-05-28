@@ -196,7 +196,7 @@ pry(main)> dmns.draw_lottery_winner(gems_and_minerals)
 
 #If no contestants are elgible for the lottery, nil is returned.
 
-pry(main)> dmns.announce_lottery_winner(imax)
+pry(main)> dmns.announce_lottery_winner(dead_sea_scrolls)
 # => "Bob has won the IMAX edhibit lottery"
 
 # The above string should match exactly, you will need to stub the return of `draw_lottery_winner` as the above method should depend on the return value of `draw_lottery_winner`.

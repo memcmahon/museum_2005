@@ -147,7 +147,7 @@ class MuseumTest < Minitest::Test
     lotto_contestants = [patron_1.name, patron_3.name]
     lotto_winner = dmns.draw_lottery_winner(dead_sea_scrolls)
 
-    assert_equal true, dmns.draw_lottery_winner(dead_sea_scrolls) == 'Bob' || dmns.draw_lottery_winner(dead_sea_scrolls) == 'Johnny'
+    # assert_equal true, (dmns.draw_lottery_winner(dead_sea_scrolls) == 'Bob' || dmns.draw_lottery_winner(dead_sea_scrolls) == 'Johnny')
     assert_equal true, lotto_contestants.include?(lotto_winner)
     assert_equal false, lotto_contestants.include?(patron_2.name)
     assert_nil dmns.draw_lottery_winner(imax)
