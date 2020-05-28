@@ -38,4 +38,24 @@ class Museum
       patron.interests.include?(exhibit.name)
     end
   end
+
+  def patrons_by_exhibit_interest
+    # patrons_by_exhibit = {}
+    # @exhibits.each do |exhibit|
+    #   interested_patrons = @patrons.find_all do |patron|
+    #     patron.interests.include?(exhibit.name)
+    #   end
+    #   patrons_by_exhibit[exhibit] = interested_patrons
+    # end
+    # patrons_by_exhibit
+
+    @exhibits.reduce({}) do |patrons_by_exhibit, exhibit|
+      binding.pry
+      interested_patrons = @patrons.find_all do |patron|
+        patron.interests.include?(exhibit.name)
+      end
+      patrons_by_exhibit[exhibit] = interested_patrons
+      patrons_by_exhibit
+    end
+  end
 end
